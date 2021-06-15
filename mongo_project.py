@@ -29,7 +29,7 @@ def show_menu():
     return option
 
 
-def get_record():    
+def get_record():
     print("")
     first = input("Enter first name > ")
     last = input("Enter last name > ")
@@ -38,7 +38,7 @@ def get_record():
         doc = coll.find_one({"first": first.lower(), "last": last.lower()})
     except:
         print("Error accessing the database")
-    
+
     if not doc:
         print("")
         print("Error! No results found")
@@ -78,7 +78,7 @@ def find_record():
     doc = get_record()
     if doc:
         print("")
-        for k,v in doc.items():
+        for k, v in doc.items():
             if k != "_id":
                 print(k.capitalize() + ": " + v.capitalize())
 
@@ -88,13 +88,13 @@ def edit_record():
     if doc:
         update_doc = {}
         print("")
-        for k,v in doc.items():
+        for k, v in doc.items():
             if k != "_id":
                 update_doc[k] = input(k.capitalize() + " [" + v + "] > ")
 
                 if update_doc[k] == "":
                     update_doc[k] = v
-        
+
         try:
             coll.update_one(doc, {"$set": update_doc})
             print("")
@@ -107,12 +107,13 @@ def delete_record():
     doc = get_record()
     if doc:
         print("")
-        for k,v in doc.items():
+        for k, v in doc.items():
             if k != "_id":
                 print(k.capitalize() + ": " + v.capitalize())
 
         print("")
-        confirmation = input("Is this the document you want to delete?\nY or N >")
+        confirmation = input(
+            "Is this the document you want to delete?\nY or N >")
         print("")
 
         if confirmation. lower() == "y":
@@ -123,8 +124,6 @@ def delete_record():
                 sprint("Error accessing the database")
         else:
             print("Document not deleted")
-            
-
 
 
 def main_loop():
